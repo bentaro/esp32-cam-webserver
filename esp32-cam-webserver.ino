@@ -336,10 +336,11 @@ void StartCamera() {
     config.xclk_freq_hz = xclk * 1000000;
     config.pixel_format = PIXFORMAT_JPEG;
     // Low(ish) default framesize and quality
-    config.frame_size = FRAMESIZE_SVGA;
-    config.jpeg_quality = 12;
+    // config.frame_size = FRAMESIZE_SVGA;
+    config.frame_size = FRAMESIZE_QSXGA;
+    config.jpeg_quality = 90;
     config.fb_location = CAMERA_FB_IN_PSRAM;
-    config.fb_count = 2;
+    config.fb_count = 1;
     config.grab_mode = CAMERA_GRAB_LATEST;
 
     #if defined(CAMERA_MODEL_ESP_EYE)
@@ -387,6 +388,7 @@ void StartCamera() {
             s->set_brightness(s, 1);  //up the blightness just a bit
             s->set_saturation(s, -2);  //lower the saturation
         }
+        sensorPID = OV3660_PID;
 
         // M5 Stack Wide has special needs
         #if defined(CAMERA_MODEL_M5STACK_WIDE)
@@ -416,7 +418,7 @@ void StartCamera() {
         */
 
         //s->set_framesize(s, FRAMESIZE_SVGA); // FRAMESIZE_[QQVGA|HQVGA|QVGA|CIF|VGA|SVGA|XGA|SXGA|UXGA|QXGA(ov3660)]);
-        //s->set_quality(s, val);       // 10 to 63
+        s->set_quality(s, 3);       // 10 to 63
         //s->set_brightness(s, 0);      // -2 to 2
         //s->set_contrast(s, 0);        // -2 to 2
         //s->set_saturation(s, 0);      // -2 to 2
